@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>my First Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load Mapbox CSS for map display and controls, and JS for map functions. -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+
+    <style>
+        /* Remove page spacing and fill the window with the map. */
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <!-- Container where Mapbox renders the map. -->
+    <div id="map"></div>
+    <script>
+        // Authorize Mapbox requests with my public token.
+        mapboxgl.accessToken = 'pk.eyJ1IjoieXNrMDExMi1lM24iLCJhIjoiY211enRjMXYzMDE5eTJ4cHN0dGhqMmEweiJ9.XCKoxGAeP5_U2fnJr7G9bQ';
+
+        // Create the map using the default Standard style and projection.
+        const mymap = new mapboxgl.Map({
+            container: 'map', // Match the map div's ID.
+            //style: 'mapbox://styles/mapbox/light-v11',
+            //projection: 'globe',
+            center: [-122.335, 47.608], // Downtown Seattle: [longitude, latitude].
+            zoom: 14 // Initial zoom level.
+        });
+
+        // Wait for the style to load before configuring Standard's 'basemap'.
+        mymap.on('style.load', () => {
+            // Set dusk lighting.
+            mymap.setConfigProperty('basemap', 'lightPreset', 'dusk');
+            // Hide point-of-interest icons and text.
+            mymap.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+            // Hide road names and shields, reducing clutter for comparing street patterns.
+            mymap.setConfigProperty('basemap', 'showRoadLabels', false);
+            // Hide transit icons and text, useful for focusing on downtown's layout rather than transit.
+            mymap.setConfigProperty('basemap', 'showTransitLabels', false);
+        });
+
+        // Add a fullscreen button.
+        mymap.addControl(new mapboxgl.FullscreenControl());
+        // Add zoom buttons and a compass to reset north.
+        mymap.addControl(new mapboxgl.NavigationControl());
+    </script>
+</body>
+</html>
