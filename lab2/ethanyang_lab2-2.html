@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>World Cities by Population Size</title>
+    <title>Ten Least Populated Cities in the Dataset</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
@@ -72,7 +72,7 @@
 
 <body>
     <div id="map"></div>
-    <div id="title">World Cities by Population Size</div>
+    <div id="title">Ten Least Populated Cities in the Dataset</div>
     <div id="legend"></div>
 
     <script>
@@ -102,20 +102,18 @@
                 type: 'circle',
                 source: 'population',
                 paint: {
-                    // Tertile breaks give groups of 6440, 6440, and 6441 cities.
-                    // Radii show population classes, not proportional areas.
+                    // Below 15009 selects exactly the ten least populated cities.
+                    // Larger circles highlight these cities; areas are not proportional to population.
                     'circle-radius': [
                         'step', ['get', 'population'],
-                        2,
-                        25683, 5,
-                        57101, 9
+                        9,
+                        15009, 2
                     ],
-                    // Darker blues indicate higher population groups.
+                    // Dark blue highlights the selected cities; gray shows all others.
                     'circle-color': [
                         'step', ['get', 'population'],
-                        '#c6dbef',
-                        25683, '#6baed6',
-                        57101, '#08519c'
+                        '#08519c',
+                        15009, '#cccccc'
                     ],
                     'circle-stroke-width': 1,
                     'circle-stroke-color': 'white'
@@ -139,10 +137,10 @@
 
         // Legend ranges, radii, and colors match the map classes.
         const legend = document.getElementById('legend');
-        const grades = ['< 25,683', '25,683–57,100', '≥ 57,101'];
-        const radii = [2, 5, 9];
-        const colors = ['#c6dbef', '#6baed6', '#08519c'];
-        const labels = ['<strong>Population (tertiles)</strong>'];
+        const grades = ['Bottom 10: 15,001–15,008', 'Other cities: ≥ 15,009'];
+        const radii = [9, 2];
+        const colors = ['#08519c', '#cccccc'];
+        const labels = ['<strong>City Population</strong>'];
 
         for (let i = 0; i < grades.length; i++) {
             const value = grades[i];
