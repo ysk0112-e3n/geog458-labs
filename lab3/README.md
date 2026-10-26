@@ -7,6 +7,7 @@ Ethan Yang | GEOG 458
 - [Repository](https://github.com/ysk0112-e3n/geog458-labs)
 
 **Purpose:** Compare station measurements with estimated surfaces. Each map: Studio basemap + IDW raster + clickable stations.
+**Audience:** Students and residents exploring local air quality and summer rainfall patterns.
 
 ## Guided: PM2.5
 
